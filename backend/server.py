@@ -36,7 +36,9 @@ articles_schema = ArticlesSchema(many=True)
 # default route
 @app.route('/', methods=['GET'])
 def index():
-    return jsonify({"Hello" : "World"})
+    all_articles = Articles.query.all()
+    res = articles_schema.dump(all_articles)
+    return jsonify(res)
 
 
 # route for post
