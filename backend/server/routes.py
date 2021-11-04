@@ -2,7 +2,7 @@ from flask import jsonify, request
 from backend.server.db import Articles, ArticlesSchema
 from backend.server import app, db
 
-# to save data
+# to save data, to show data by schema
 article_schema = ArticlesSchema()
 # to show data
 articles_schema = ArticlesSchema(many=True)
@@ -26,3 +26,36 @@ def post():
     db.session.add(articles)
     db.session.commit()
     return articles_schema.jsonify(articles)
+
+
+@app.route('/get/<id>/', methods=['GET'])
+def get_by_id(id):
+    article = Articles.query.get(id)
+    return article_schema.jsonify(article)
+
+
+@app.route('/update/<id>/', methods=['PUT'])
+def update_by_id(id):
+    # request from db
+    article = Articles.query.get(id)
+
+    # request Data
+    title = request.json['title']
+    body = request.json['body']
+
+    # replace data
+    article.title = title
+    article.body = body
+
+    # update data
+    db.session.commit()
+
+    return article_schema.jsonify(article)
+
+
+@app.route('/delete/<id>/', methods=['DELETE'])
+def delete_by_id(id):
+    article = Articles.query.get(id)
+    db.session.delete(article)
+    db.session.commit()
+    return article_schema.jsonify(article)
