@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <h2>Edit Form</h2>
-    <form @submit.prevent="insertArticle">
+    <form @submit.prevent="doUpdate">
       <div class="form-group">
         <input type="text" class="form-control" v-model="title" placeholder="Enter your title here" />
       </div>
@@ -18,15 +18,45 @@
 
 <script>
 export default {
+  props: {
+    id: {
+      type: [Number, String],
+      required: true,
+    },
+  },
   data() {
-    // model
     return {
       title: null,
       body: null,
       error: null,
     };
   },
-
+  methods: {
+    doUpdate() {
+      // Jika salah satu kolom kosong
+      if (!this.title || !this.body) {
+        this.error = "Please fill all fields";
+      } else {
+        fetch("http://localhost:8000/update/" + this.id + "/", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: this.title,
+            body: this.body,
+          }),
+        })
+          .then((resp) => resp.json())
+          .then(() => {
+            this.$router.push({
+              name: "home",
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+  },
   beforeRouteEnter(to, from, next) {
     if (to.params.id != undefined) {
       fetch("http://localhost:8000/get/" + to.params.id + "/", {
