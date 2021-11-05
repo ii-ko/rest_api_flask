@@ -12,4 +12,4 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-from backend.server import routes
+from ..server import routes

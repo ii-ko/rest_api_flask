@@ -6,6 +6,7 @@
           {{ res.title }}
         </router-link>
       </h3>
+      <hr />
     </div>
   </div>
 </template>

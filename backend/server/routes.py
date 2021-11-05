@@ -1,6 +1,8 @@
 from flask import jsonify, request
-from backend.server.db import Articles, ArticlesSchema
-from backend.server import app, db
+from ..server.models import Articles, ArticlesSchema
+from ..server import app, db
+# from backend.server.db import Articles, ArticlesSchema
+# from backend.server import app, db
 
 # to save data, to show data by schema
 article_schema = ArticlesSchema()
@@ -25,7 +27,7 @@ def post():
     articles = Articles(title, body)
     db.session.add(articles)
     db.session.commit()
-    return articles_schema.jsonify(articles)
+    return article_schema.jsonify(articles)
 
 
 @app.route('/get/<id>/', methods=['GET'])
