@@ -4,7 +4,7 @@
     <p>{{ article.body }}</p>
     <p>Published Date : {{ article.date }}</p>
     <button class="btn btn-danger mx-3 mt-3" @click="deleteById">Delete</button>
-    <button class="btn btn-secondary mx-3 mt-3">Edit</button>
+    <router-link :to="{ name: 'edit', params: { id: article.id } }" class="btn btn-secondary mx-3 mt-3">Edit</router-link>
   </div>
 </template>
 

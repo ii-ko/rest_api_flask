@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-4">
+    <h2>Create Form</h2>
     <form @submit.prevent="insertArticle">
       <div class="form-group">
         <input type="text" class="form-control" v-model="title" placeholder="Enter your title here" />
