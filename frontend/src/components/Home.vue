@@ -3,7 +3,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    getArticles() {
+      fetch("http://localhost:8000/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style>
