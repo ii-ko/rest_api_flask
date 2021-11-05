@@ -1,9 +1,20 @@
 <template>
-  <h1>This is Home Page</h1>
+  <div class="container mt-5">
+    <div v-for="res in articles" :key="res.id">
+      <h3>{{ res.title }}</h3>
+      <p>{{ res.body }}</p>
+      <p>{{ res.date }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      articles: [],
+    };
+  },
   methods: {
     getArticles() {
       fetch("http://localhost:8000/", {
@@ -14,12 +25,15 @@ export default {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          console.log(data);
+          this.articles.push(...data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
+  },
+  created() {
+    this.getArticles();
   },
 };
 </script>
