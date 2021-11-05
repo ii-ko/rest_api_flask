@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <div v-for="res in articles" :key="res.id">
       <h3>
-        <router-link :to="{ name: 'details', params: { id: res.id } }">
+        <router-link class="link-style" :to="{ name: 'details', params: { id: res.id } }">
           {{ res.title }}
         </router-link>
       </h3>
@@ -41,6 +41,16 @@ export default {
 </script>
 
 <style>
+.link-style {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+
+.link-style:hover {
+  color: gray;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
